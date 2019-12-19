@@ -14,7 +14,7 @@
 <div class="modal fade" id="propertiesFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <form>
+    <form [formGroup]="propertiesForm" (ngSubmit)="onSubmitPropertiesForm()">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalCenterTitle">Edition d'un bien</h5>
@@ -24,35 +24,35 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Titre">
+            <input type="text" class="form-control" placeholder="Titre" formControlformControlName='title'>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Catégorie</label>
             </div>
-            <select class="custom-select" id="inputGroupSelect01">
+            <select class="custom-select" id="inputGroupSelect01" formControlName='category'>
               <option value="appartement">Appartement</option>
               <option value="maison">Maison</option>
             </select>
           </div>
           <div class="form-row">
             <div class="form-group col-6">
-              <input type="text" placeholder="Surface (m²)" class="form-control">
+              <input type="text" placeholder="Surface (m²)" class="form-control" formControlName='surface'>
             </div>
             <div class="form-group col-6">
-              <input type="text" placeholder="Nombre de pièces" class="form-control">
+              <input type="text" placeholder="Nombre de pièces" class="form-control" formControlName='rooms'>
             </div>
           </div>
           <div class="form-group">
-            <textarea placeholder="Description du bien" rows="4" class="form-control w-100"></textarea>
+            <textarea placeholder="Description du bien" rows="4" class="form-control w-100" formControlName='description'></textarea>
           </div>
           <div class="form-group">
-            <input type="text" placeholder='Prix' class="form-control">
+            <input type="text" placeholder='Prix' class="form-control" formControlName='price'>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-primary">Enregistrer</button>
+          <button type="button" class="btn btn-primary" type='submit'>Enregistrer</button>
         </div>
       </div>
     </form>

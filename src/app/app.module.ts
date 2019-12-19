@@ -9,6 +9,7 @@ import { CardsListComponent } from './components/cards-list/cards-list.component
 import { HomeComponent } from './pages/home/home.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { AdminPropertiesComponent } from './components/admin-properties/admin-properties.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
     CardsListComponent,
     HomeComponent,
     AdminComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    AdminPropertiesComponent
   ],
   imports: [
     BrowserModule,

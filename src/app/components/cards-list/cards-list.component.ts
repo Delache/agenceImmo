@@ -1,6 +1,7 @@
+import { Observable, Subscription} from 'rxjs';
 import { House } from './../../shared/models/house';
 import { HouseService } from './../../shared/services/house.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 
 
@@ -9,12 +10,15 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './cards-list.component.html',
   styleUrls: ['./cards-list.component.css']
 })
-export class CardsListComponent implements OnInit {
-  constructor(private houseService: HouseService) { }
+export class CardsListComponent implements OnInit , OnDestroy {
   houses: House[];
+  housesSubscription: Subscription;
+constructor(private houseService: HouseService) { }
 
-  ngOnInit() {
-    this.houseService.getAllHouses().then(
+
+ngOnInit() {
+   // Version avec promise
+/*     this.houseService.getAllHouses().then(
       (data: House[]) => {
         this.houses = data;
         console.log(data);
@@ -23,7 +27,18 @@ export class CardsListComponent implements OnInit {
       (error) => {
         console.error(error);
       }
+    ); */
+
+    // Version Observable
+    this.housesSubscription =  this.houseService.housesSubject.subscribe(
+      (data: House[]) => {
+        this.houses = data;
+      }
     );
+    this.houseService.emitHouses();
+  }
+ngOnDestroy() {
+    this.housesSubscription.unsubscribe();
   }
 
 }

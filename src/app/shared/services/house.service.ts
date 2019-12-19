@@ -1,15 +1,23 @@
+import { House } from './../models/house';
 import { MockHouses } from './../mocks/houses-mock';
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HouseService {
   houses = MockHouses;
+  housesSubject = new Subject<House[]>();
   constructor() { }
 
-// Promise
-  getAllHouses() {
+emitHouses() {
+    this.housesSubject.next(this.houses);
+  }
+getAllHouses() {}
+
+// Promise:
+/*   getAllHouses() {
     return new Promise(
       (resolve, reject) => {
         if (this.houses && this.houses.length > 0) {
@@ -20,6 +28,20 @@ export class HouseService {
         }
       }
     );
-  }
-}
+  } */
 
+// Observable:
+/* getAllHouses() {
+    return new Observable(
+      (observer) => {
+        if (this.houses && this.houses.length > 0) {
+          observer.next(this.houses);
+          observer.complete();
+        } else {
+          const error = new Error('Houses does not exist or is empty');
+          observer.error(error);
+        }
+      }
+    );
+  } */
+}

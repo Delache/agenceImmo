@@ -18,9 +18,13 @@ createHouse(newHouse: House) {
   this.houses.push(newHouse);
 }
 deleteHouse(index: number) {
-  if (confirm('Etes-vous sûr de vouloir supprimer ce bien?')) {
     this.houses.splice(index, 1);
-  }
+}
+modifyHouse(house: House) {
+
+}
+editHouse(house: House) {
+
 }
 
 getAllHouses() {}

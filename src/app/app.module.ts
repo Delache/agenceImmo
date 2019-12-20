@@ -23,7 +23,7 @@ import { AdminCardComponent } from './components/admin-card/admin-card.component
     AdminComponent,
     AdminDashboardComponent,
     AdminHousesComponent,
-    AdminCardComponent
+    AdminCardComponent,
   ],
   imports: [
     BrowserModule,

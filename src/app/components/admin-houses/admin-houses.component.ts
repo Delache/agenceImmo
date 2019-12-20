@@ -4,10 +4,6 @@ import { HouseService } from '../../shared/services/house.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import * as $ from 'jquery';
-
-
-
-
 @Component({
   selector: 'app-admin-houses',
   templateUrl: './admin-houses.component.html',
@@ -48,6 +44,10 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
   }
   resetForm() {
     this.housesForm.reset();
+  }
+  onDeleteHouse(index: number) {
+    this.houseService.deleteHouse(index);
+    $('#confirmDeleleModal').modal('hide');
   }
   ngOnDestroy() {
     this.housesSubscription.unsubscribe();

@@ -10,7 +10,7 @@ import { CardsListComponent } from './components/cards-list/cards-list.component
 import { HomeComponent } from './pages/home/home.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { AdminPropertiesComponent } from './components/admin-properties/admin-properties.component';
+import { AdminHousesComponent } from './components/admin-houses/admin-houses.component';
 import { AdminCardComponent } from './components/admin-card/admin-card.component';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { AdminCardComponent } from './components/admin-card/admin-card.component
     HomeComponent,
     AdminComponent,
     AdminDashboardComponent,
-    AdminPropertiesComponent,
+    AdminHousesComponent,
     AdminCardComponent
   ],
   imports: [

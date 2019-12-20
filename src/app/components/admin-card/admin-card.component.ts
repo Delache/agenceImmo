@@ -1,3 +1,4 @@
+import { HouseService } from './../../shared/services/house.service';
 import { House } from './../../shared/models/house';
 import { Component, OnInit, Input} from '@angular/core';
 
@@ -9,9 +10,13 @@ import { Component, OnInit, Input} from '@angular/core';
 })
 export class AdminCardComponent implements OnInit {
   @Input() house: House;
-  constructor() { }
+  @Input() index: number;
+  constructor(private houseService: HouseService) { }
 
   ngOnInit() {
+  }
+  onDeleteHouse() {
+    this.houseService.deleteHouse(this.index);
   }
 
 }

@@ -1,3 +1,4 @@
+import { HouseService } from './../../shared/services/house.service';
 import { House } from './../../shared/models/house';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -12,7 +13,7 @@ export class CardComponent implements OnInit {
   title = 'agenceImmo';
 
 
-  constructor() { }
+  constructor(private houseService: HouseService) { }
 
   ngOnInit() {
   }
@@ -22,5 +23,5 @@ export class CardComponent implements OnInit {
     } else {
       return 'green';
     }
-  }
+}
 }

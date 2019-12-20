@@ -24,9 +24,7 @@ updateHouse(house: House, index: number) {
   this.houses[index] = house;
   this.emitHouses();
 }
-editHouse(house: House) {
 
-}
 
 getAllHouses() {}
 

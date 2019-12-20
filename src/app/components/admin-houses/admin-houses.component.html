@@ -2,34 +2,41 @@
   <div class="row">
     <div class="col-12 d-flex">
       <h2 class="font-weight-light"><i class="fas fa-home"></i> Biens immobiliers</h2>
-      <button class="btn btn-primary ml-auto" type="button" data-toggle="modal" data-target="#housesFormModal" (click)='resetForm()'><i
-          class="fas fa-plus"></i> Ajouter un bien</button>
+      <button class="btn btn-primary ml-auto" type="button" data-toggle="modal" data-target="#housesFormModal"
+        (click)='resetForm()'><i class="fas fa-plus"></i> Ajouter un bien</button>
     </div>
   </div>
   <hr class="mt-1 mb-5 bg-dark">
   <div class="row">
     <div class="col-12 shadow-sm p-4 mb-3 bg-light" *ngFor="let house of houses; let i = index">
       <div class="d-flex">
-        <h3 class="font-weight-normal">{{house.title}}  </h3>
+        <h3 class="font-weight-normal">{{house.title}} </h3>
         <div class="ml-auto">
-          <button class="btn btn-primary m-1"type='button' (click)='onEditHouse(house, i)'><i class="fas fa-edit"></i></button>
-          <button class="btn btn-danger m-1" type='button' (click)='askConfirmDeleteHouse()'><i class="fas fa-trash-alt"></i></button>
+          <button class="btn btn-primary m-1" type='button' (click)='onEditHouse(house, i)'><i
+              class="fas fa-edit"></i></button>
+          <button class="btn btn-danger m-1" type='button' (click)='askConfirmDeleteHouse()'><i
+              class="fas fa-trash-alt"></i></button>
         </div>
       </div>
       <p>
-        {{house.category}} <span *ngIf="house.surface && house.surface !== undefined">de {{ house.surface}} m², </span> <span *ngIf="house.rooms && house.rooms!==undefined">{{ house.rooms}} pièce(s)</span>.
+        {{house.category}} <span *ngIf="house.surface && house.surface !== undefined">de {{ house.surface}} m², </span>
+        <span *ngIf="house.rooms && house.rooms!==undefined">{{ house.rooms}} pièce(s)</span>.
       </p>
-    <p *ngIf="house.price && house.price !== undefined">
-      {{house.price}} €
-    </p>
-
+      <p *ngIf="house.price && house.price !== undefined">
+        {{house.price}} €
+      </p>
+      <p>
+        <span *ngIf="!house.sold" class="text-success">A vendre</span>
+        <span *ngIf="house.sold" class="text-danger">Vendu !</span>
+      </p>
 
     </div>
   </div>
 </div>
 
 <!--deleteModal-->
-<div class="modal fade" id="confirmDeleleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="confirmDeleleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -81,15 +88,23 @@
             </div>
           </div>
           <div class="form-group">
-            <textarea placeholder="Description du bien" rows="4" class="form-control w-100" formControlName='description'></textarea>
+            <textarea placeholder="Description du bien" rows="4" class="form-control w-100"
+              formControlName='description'></textarea>
           </div>
           <div class="form-group">
             <input type="text" placeholder='Prix' class="form-control" formControlName='price'>
           </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName='sold'>
+            <label class="custom-control-label" for="customSwitch1">
+              <span class="text-success" *ngIf="housesForm.value.sold">Vendu</span>
+              <span class="text-danger" *ngIf="!housesForm.value.sold">A vendre</span></label>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-primary" type='submit' [disabled]='housesForm.invalid'>Enregistrer</button>
+          <button type="button" class="btn btn-primary" type='submit'
+            [disabled]='housesForm.invalid'>Enregistrer</button>
         </div>
       </div>
     </form>

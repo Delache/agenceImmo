@@ -36,7 +36,8 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
       surface: ['', Validators.required],
       rooms: ['', Validators.required],
       description: '',
-      price: ['', Validators.required]
+      price: ['', Validators.required],
+      sold: '',
     });
   }
   onSubmitHousesForm() {
@@ -70,6 +71,7 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
     this.housesForm.get('rooms').setValue(house.rooms);
     this.housesForm.get('price').setValue(house.price);
     this.housesForm.get('description').setValue(house.description);
+    this.housesForm.get('sold').setValue(house.sold);
     const index = this.houses.findIndex(
       (housesEl) => {
         if (housesEl === house) {
@@ -77,5 +79,8 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
         }
       });
     this.indexToUpdate = index;
+  }
+  getSoldValue() {
+    this.housesForm.getSoldValue(this.housesForm.sold);
   }
 }

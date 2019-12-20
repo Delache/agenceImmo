@@ -11,7 +11,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminHousesComponent } from './components/admin-houses/admin-houses.component';
-import { AdminCardComponent } from './components/admin-card/admin-card.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,6 @@ import { AdminCardComponent } from './components/admin-card/admin-card.component
     AdminComponent,
     AdminDashboardComponent,
     AdminHousesComponent,
-    AdminCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,8 +9,21 @@
   <hr class="mt-1 mb-5 bg-dark">
   <div class="row">
     <div class="col-12 shadow-sm p-4 mb-3 bg-light" *ngFor="let house of houses; let i = index">
-      <app-admin-card [house]='house'
-                      [index]='i'></app-admin-card>
+      <div class="d-flex">
+        <h3 class="font-weight-normal">{{house.title}}  </h3>
+        <div class="ml-auto">
+          <button class="btn btn-primary m-1"type='button' (click)='onEditHouse(house, i)'><i class="fas fa-edit"></i></button>
+          <button class="btn btn-danger m-1" type='button' (click)='askConfirmDeleteHouse()'><i class="fas fa-trash-alt"></i></button>
+        </div>
+      </div>
+      <p>
+        {{house.category}} <span *ngIf="house.surface && house.surface !== undefined">de {{ house.surface}} m², </span> <span *ngIf="house.rooms && house.rooms!==undefined">{{ house.rooms}} pièce(s)</span>.
+      </p>
+    <p *ngIf="house.price && house.price !== undefined">
+      {{house.price}} €
+    </p>
+
+
     </div>
   </div>
 </div>
@@ -55,8 +68,8 @@
               <label class="input-group-text" for="inputGroupSelect01">Catégorie</label>
             </div>
             <select class="custom-select" id="inputGroupSelect01" formControlName='category'>
-              <option value="appartement">Appartement</option>
-              <option value="maison">Maison</option>
+              <option value="Appartement">Appartement</option>
+              <option value="Maison">Maison</option>
             </select>
           </div>
           <div class="form-row">

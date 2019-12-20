@@ -13,6 +13,8 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
   housesForm: FormGroup;
   houses: House [];
   housesSubscription: Subscription;
+  editMode = false;
+  indexToUpdate: number;
 
   constructor(private formbuilder: FormBuilder,
               private houseService: HouseService) {
@@ -39,10 +41,14 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
   }
   onSubmitHousesForm() {
     const newHouse = this.housesForm.value;
-    this.houseService.createHouse(newHouse);
+    if (this.editMode) {
+      this.houseService.updateHouse(newHouse, this.indexToUpdate);
+    } else {
+    this.houseService.createHouse(newHouse); }
     $('#housesFormModal').modal('hide');
   }
   resetForm() {
+    this.editMode = false;
     this.housesForm.reset();
   }
   onDeleteHouse(index: number) {
@@ -51,5 +57,25 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.housesSubscription.unsubscribe();
+  }
+  askConfirmDeleteHouse() {
+    $('#confirmDeleleModal').modal('show');
+  }
+  onEditHouse(house: House) {
+    $('#housesFormModal').modal('show');
+    this.editMode = true;
+    this.housesForm.get('title').setValue(house.title);
+    this.housesForm.get('category').setValue(house.category);
+    this.housesForm.get('surface').setValue(house.surface);
+    this.housesForm.get('rooms').setValue(house.rooms);
+    this.housesForm.get('price').setValue(house.price);
+    this.housesForm.get('description').setValue(house.description);
+    const index = this.houses.findIndex(
+      (housesEl) => {
+        if (housesEl === house) {
+          return true;
+        }
+      });
+    this.indexToUpdate = index;
   }
 }

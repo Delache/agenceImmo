@@ -20,8 +20,9 @@ createHouse(newHouse: House) {
 deleteHouse(index: number) {
     this.houses.splice(index, 1);
 }
-modifyHouse(house: House) {
-
+updateHouse(house: House, index: number) {
+  this.houses[index] = house;
+  this.emitHouses();
 }
 editHouse(house: House) {
 

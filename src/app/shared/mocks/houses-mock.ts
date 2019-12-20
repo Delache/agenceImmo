@@ -3,26 +3,38 @@ import { House } from '../models/house';
 export const MockHouses: House[] = [
   {
     title: 'Très belle maison',
-    type: 'Maison',
+    category: 'Maison',
     description: 'Lorem ipsum',
-    sold: false
+    sold: false,
+    surface: 250,
+    rooms: 5,
+    price: 400000,
   },
   {
     title: 'Studio',
-    type: 'Appartement',
+    category: 'Appartement',
     description: 'Lorem ipsum',
-    sold: false
+    sold: false,
+    surface: 25,
+    rooms: 1,
+    price: 75000,
   },
   {
     title: 'Villa',
-    type: 'Maison',
+    category: 'Maison',
     description: 'Lorem ipsum',
-    sold: true
+    sold: true,
+    surface: 500,
+    rooms: 9,
+    price: 1000000,
   },
   {
     title: 'Coup de coeur',
-    type: 'Maison',
+    category: 'Maison',
     description: 'Lorem ipsum',
-    sold: false
+    sold: false,
+    surface: 150,
+    rooms: 4,
+    price: 300000,
   }
 ];

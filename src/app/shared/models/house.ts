@@ -1,7 +1,10 @@
 export class House {
   public title: string;
-  public type: string;
-  public description: string;
+  public category?: string;
+  public description?: string;
+  public surface?: number;
+  public rooms?: number;
+  public price?: number;
   public sold: boolean;
 
   constructor(input?: House) {

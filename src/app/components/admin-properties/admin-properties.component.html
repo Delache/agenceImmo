@@ -7,7 +7,11 @@
     </div>
   </div>
   <hr class="mt-1 mb-5 bg-dark">
-  <div class="row"></div>
+  <div class="row">
+    <div class="col-12 shadow-sm p-4 mb-3 bg-light" *ngFor="let house of houses">
+      <app-admin-card [house]='house'></app-admin-card>
+    </div>
+  </div>
 </div>
 
 <!-- Modal -->
@@ -24,7 +28,7 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Titre" formControlformControlName='title'>
+            <input type="text" class="form-control" placeholder="Titre" formControlName='title'>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -52,7 +56,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-primary" type='submit'>Enregistrer</button>
+          <button type="button" class="btn btn-primary" type='submit' [disabled]='propertiesForm.invalid'>Enregistrer</button>
         </div>
       </div>
     </form>

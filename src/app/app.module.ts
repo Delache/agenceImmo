@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminHousesComponent } from './components/admin-houses/admin-houses.component';
+import { SignInComponent } from './components/authentication/sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AdminHousesComponent } from './components/admin-houses/admin-houses.com
     AdminComponent,
     AdminDashboardComponent,
     AdminHousesComponent,
+    SignInComponent,
   ],
   imports: [
     BrowserModule,

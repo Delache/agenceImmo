@@ -80,7 +80,4 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
       });
     this.indexToUpdate = index;
   }
-  getSoldValue() {
-    this.housesForm.getSoldValue(this.housesForm.sold);
-  }
 }

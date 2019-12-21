@@ -27,6 +27,7 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
         this.houses = data;
       }
     );
+    this.houseService.getHouses();
     this.houseService.emitHouses();
   }
   initHousesForm() {
@@ -52,8 +53,8 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
     this.editMode = false;
     this.housesForm.reset();
   }
-  onDeleteHouse(index: number) {
-    this.houseService.deleteHouse(index);
+  onDeleteHouse(house: House) {
+    this.houseService.deleteHouse(house);
     $('#confirmDeleleModal').modal('hide');
   }
   ngOnDestroy() {

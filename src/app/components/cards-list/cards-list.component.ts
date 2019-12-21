@@ -13,6 +13,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class CardsListComponent implements OnInit , OnDestroy {
   houses: House[];
   housesSubscription: Subscription;
+
 constructor(private houseService: HouseService) { }
 
 
@@ -35,6 +36,7 @@ ngOnInit() {
         this.houses = data;
       }
     );
+    this.houseService.getHouses();
     this.houseService.emitHouses();
   }
 ngOnDestroy() {

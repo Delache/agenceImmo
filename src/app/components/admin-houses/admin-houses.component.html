@@ -9,6 +9,12 @@
   <hr class="mt-1 mb-5 bg-dark">
   <div class="row">
     <div class="col-12 shadow-sm p-4 mb-3 bg-light" *ngFor="let house of houses; let i = index">
+      <div class="col-md-2">
+        <div class="w-100" *ngFor="let photos of house.photos; let first = first">
+            <img *ngIf="first" [src]="photos" alt="Property photo" style="width: 150px;">
+        </div>
+        <h4 *ngIf="!house.photos || house.photos.length == 0" class="font-weight-light">Pas de photo</h4>
+      </div>
       <div class="d-flex">
         <h3 class="font-weight-normal">{{house.title}} </h3>
         <div class="ml-auto">
@@ -78,6 +84,25 @@
               <option value="Appartement">Appartement</option>
               <option value="Maison">Maison</option>
             </select>
+          </div>
+          <div class="form-group">
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Ajouter une image</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" id="photo" (change)="detectFile($event)" aria-describedby="inputGroupFileAddon01" accept="image/*" class="custom-file-input">
+                <label for="photo" class="custom-file-label">Choisir...</label>
+              </div>
+            </div>
+            <small class="text-warning" *ngIf="photoUploading">Chargement...</small>
+            <small class="text-success" *ngIf="photoUploaded">Fichier chargé</small>
+          </div>
+          <div class="row">
+            <div *ngFor="let photo of photosAdded; let i = index" class="col-4 position-relative border border-secondary rounded m-1 p-1 bg-light">
+              <span class="text-danger position-absolute deletePhoto mr-1" (click)="onRemoveAddedPhoto(i)"><i class="fas fa-times"></i></span>
+              <img [src]="photo" alt="photo" class="w-100">
+            </div>
           </div>
           <div class="form-row">
             <div class="form-group col-6">

@@ -14,7 +14,9 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
   houses: House [];
   housesSubscription: Subscription;
   editMode = false;
-  indexToUpdate: number;
+
+
+
 
   constructor(private formbuilder: FormBuilder,
               private houseService: HouseService) {
@@ -44,7 +46,7 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
   onSubmitHousesForm() {
     const newHouse = this.housesForm.value;
     if (this.editMode) {
-      this.houseService.updateHouse(newHouse, this.indexToUpdate);
+      this.houseService.updateHouse(newHouse);
     } else {
     this.houseService.createHouse(newHouse); }
     $('#housesFormModal').modal('hide');
@@ -53,17 +55,18 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
     this.editMode = false;
     this.housesForm.reset();
   }
-  onDeleteHouse(house: House) {
-    this.houseService.deleteHouse(house);
+  onDeleteHouse() {
+    this.houseService.deleteHouse();
     $('#confirmDeleleModal').modal('hide');
   }
   ngOnDestroy() {
     this.housesSubscription.unsubscribe();
   }
-  askConfirmDeleteHouse() {
+  askConfirmDeleteHouse(index: number) {
     $('#confirmDeleleModal').modal('show');
+    this.houseService.indexToDelete = index;
   }
-  onEditHouse(house: House) {
+  onEditHouse(house: House, index: number) {
     $('#housesFormModal').modal('show');
     this.editMode = true;
     this.housesForm.get('title').setValue(house.title);
@@ -73,12 +76,6 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
     this.housesForm.get('price').setValue(house.price);
     this.housesForm.get('description').setValue(house.description);
     this.housesForm.get('sold').setValue(house.sold);
-    const index = this.houses.findIndex(
-      (housesEl) => {
-        if (housesEl === house) {
-          return true;
-        }
-      });
-    this.indexToUpdate = index;
+    this.houseService.indexToUpdate = index;
   }
 }

@@ -1,10 +1,10 @@
 export class House {
   public title: string;
-  public category?: string;
-  public description?: string;
-  public surface?: number;
-  public rooms?: number;
-  public price?: number;
+  public category: string;
+  public description: string;
+  public surface: number;
+  public rooms: number;
+  public price: number;
   public sold: boolean;
   public photos?: any[];
 

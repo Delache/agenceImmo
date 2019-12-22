@@ -10,6 +10,9 @@ import * as firebase from 'firebase';
 export class HouseService {
   houses: House[] = [];
   housesSubject = new Subject<House[]>();
+  indexToUpdate: number;
+  indexToDelete: number;
+
   constructor() { }
 
   emitHouses() {
@@ -23,17 +26,11 @@ export class HouseService {
     this.saveHouses();
     this.emitHouses();
   }
-  deleteHouse(house: House) {
-    const index = this.houses.findIndex(
-      (propertyEl) => {
-        if (propertyEl === house) {
-          return true;
-        }
-      }
-    );
-    this.houses.splice(index, 1);
+  deleteHouse() {
+    this.houses.splice(this.indexToDelete, 1);
     this.saveHouses();
     this.emitHouses();
+    this.indexToDelete = undefined;
   }
   getHouses() {
     firebase.database().ref('/houses').on('value', (data) => {
@@ -41,8 +38,9 @@ export class HouseService {
       this.emitHouses();
     });
   }
-  updateHouse(house: House, id: number) {
-    firebase.database().ref('/houses/' + id).update(house);
+  updateHouse(house: House) {
+    firebase.database().ref('/houses/' + this.indexToUpdate).update(house);
+    this.indexToUpdate = undefined;
   }
 }
 

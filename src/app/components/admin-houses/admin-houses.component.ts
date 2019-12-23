@@ -15,6 +15,9 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
   housesSubscription: Subscription;
   editMode = false;
 
+  photoUploading = false;
+  photoUploaded = false;
+  photosAdded: any[] = [];
 
 
 
@@ -43,30 +46,41 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
       sold: '',
     });
   }
-  onSubmitHousesForm() {
-    const newHouse = this.housesForm.value;
-    if (this.editMode) {
-      this.houseService.updateHouse(newHouse);
-    } else {
-    this.houseService.createHouse(newHouse); }
-    $('#housesFormModal').modal('hide');
-  }
   resetForm() {
     this.editMode = false;
     this.housesForm.reset();
+    this.photosAdded = [];
+
   }
+  onSubmitHousesForm() {
+    const newHouse: House = this.housesForm.value;
+    newHouse.sold = this.housesForm.get('sold').value ? this.housesForm.get('sold') : false;
+    newHouse.photos = this.photosAdded ? this.photosAdded : [];
+    if (this.editMode) {
+      this.houseService.updateHouse(newHouse);
+    } else {
+      this.houseService.createHouse(newHouse); }
+    $('#housesFormModal').modal('hide');
+    }
+    ngOnDestroy() {
+        this.housesSubscription.unsubscribe();
+      }
+
   onDeleteHouse() {
+    const house = this.houses[this.houseService.indexToDelete];
     this.houseService.deleteHouse();
     $('#confirmDeleleModal').modal('hide');
+    if (house.photos) {
+    house.photos.forEach(photo => {
+        this.houseService.removeHousePhoto(photo);
+      });
+    }
   }
-  ngOnDestroy() {
-    this.housesSubscription.unsubscribe();
-  }
-  askConfirmDeleteHouse(index: number) {
+askConfirmDeleteHouse(index: number) {
     $('#confirmDeleleModal').modal('show');
     this.houseService.indexToDelete = index;
   }
-  onEditHouse(house: House, index: number) {
+onEditHouse(house: House, index: number) {
     $('#housesFormModal').modal('show');
     this.editMode = true;
     this.housesForm.get('title').setValue(house.title);
@@ -76,6 +90,23 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
     this.housesForm.get('price').setValue(house.price);
     this.housesForm.get('description').setValue(house.description);
     this.housesForm.get('sold').setValue(house.sold);
+    this.photosAdded = house.photos ? house.photos : [];
     this.houseService.indexToUpdate = index;
+  }
+
+  detectFile(event: any) {
+
+    this.photoUploading = true;
+    this.houseService.uploadFile(event.target.files[0]).then(
+      (url: string) => {
+        this.photosAdded.push(url);
+        this.photoUploading = false;
+        this.photoUploaded = true;
+      }
+    );
+  }
+  onRemoveAddedPhoto(id: number) {
+    this.houseService.removeHousePhoto(this.photosAdded[id]);
+    this.photosAdded.splice(id, 1);
   }
 }

@@ -42,7 +42,60 @@ export class HouseService {
     firebase.database().ref('/houses/' + this.indexToUpdate).update(house);
     this.indexToUpdate = undefined;
   }
-}
+
+  uploadFile(file: File) {
+    return new Promise(
+      (resolve, reject) => {
+        const uniqueId = Date.now().toString();
+        const upload = firebase.storage().ref().child('images/houses/' + uniqueId + file.name).put(file);
+        upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
+          () => {
+            console.log('Loading...');
+          },
+          (error) => {
+            console.log('Error ! : ' + error);
+            reject();
+          },
+          () => {
+            upload.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              console.log('Ok:' + downloadURL );
+              resolve(downloadURL);
+            });
+          }
+        );
+      }
+    );
+  }
+
+removeHousePhoto(photoLink: string) {
+    if (photoLink) {
+      const storageRef = firebase.storage().refFromURL(photoLink);
+      storageRef.delete().then(
+        () => {
+          console.log('File deleted');
+        }
+      ).catch(
+        (error) => {
+          console.log('File not found : ' + error);
+        }
+      );
+    }
+  }
+
+  /* getSingleProperty(id: number) {
+    return new Promise(
+      (resolve, reject) => {
+        firebase.database().ref('/houses/' + id).once('value').then(
+          (data) => {
+            resolve(data.val());
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+      }
+    ); */
+  }
 
   // getAllHouses() { }
 

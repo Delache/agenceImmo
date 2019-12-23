@@ -1,17 +1,20 @@
-<div class="bg-white w-100 shadow my-3">
-  <div *ngFor="let photo of house.photos; let first = first" class="w-100 my-auto">
-    <img [src]="photo" alt="Property photo" class="w-100">
+<div class="card h-100" style="width: 18rem;">
+  <div *ngFor="let photo of house.photos; let first = first">
+    <img *ngIf="first" [src]="photo" alt="Property photo" class="card-img-top">
   </div>
-  <h3 class="font-weight-normal pt-3 pl-3 mb-0">{{ house.title }}</h3>
-  <small class="pl-3">{{ house.category }}, {{ house.surface }} m², {{ house.rooms }} pièce(s)</small>
-  <h4 class="font-weight-normal pl-3 pt-3">{{ house.price }} €</h4>
+  <div class="m-2">
+    <h5 class="car-title">{{ house.title }}</h5>
+  <h6 class="card-subtitle mb-2 text-muted"> {{ house.category }}</h6>
+  <p class="card-text">{{ house.surface }} m², {{ house.rooms }} pièce(s)</p>
+  <p>{{ house.price }} €</p>
   <p class="mb-3 pl-3" [ngStyle]="{color: getSoldValue(index)}">
     <span *ngIf="!house.sold">A vendre</span>
     <span *ngIf="house.sold">Vendu !</span>
   </p>
+  </div>
   <div class="text-center">
     <div class="d-flex">
-      <button class="btn btn-primary mx-auto my-3" (click)="onViewHouse()">Voir ce bien</button>
+      <button  class="btn btn-primary mx-auto my-3" type="button" (click)="onViewHouse()">Voir ce bien</button>
     </div>
   </div>
 </div>

@@ -54,7 +54,6 @@ export class AdminHousesComponent implements OnInit, OnDestroy {
   }
   onSubmitHousesForm() {
     const newHouse: House = this.housesForm.value;
-    newHouse.sold = this.housesForm.get('sold').value ? this.housesForm.get('sold') : false;
     newHouse.photos = this.photosAdded ? this.photosAdded : [];
     if (this.editMode) {
       this.houseService.updateHouse(newHouse);
